@@ -20,5 +20,8 @@ This function is responsible to pick randomised chunks of a given image. The pat
 
 
 
-#### Function_3()
-Info
+#### randpath()
+This function is designed to chose a random file from given repository. It ises the OS package to access the repository and save the name of a random (pseudo-random) file. It then returns a tuple with a path to this file as well as the file name itself.
+
+#### visit(n)
+For the purposes of modularity, this function is designed to call the randpath n times and at each iteration call randcrop on the given filepath.
