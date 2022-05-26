@@ -9,7 +9,7 @@ The problem at hand for us was to build a pipeline that randomly selects an imag
 This function takes a path and a size. Upon opening the image at the defined path, it splits the entire image length and breath wise into successive components. The image below illustrates the number of splits:
 
 
-<img src="./images/imgrop-01.png?raw=true" width="128"/>
+<img src="./images/imgrop-01.png?raw=true" width="1000"/>
 
 
 
