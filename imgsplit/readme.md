@@ -25,3 +25,9 @@ This function is designed to chose a random file from given repository. It ises 
 
 #### visit(n)
 For the purposes of modularity, this function is designed to call the randpath n times and at each iteration call randcrop on the given filepath.
+
+### Workflow
+These functions are designed to serve as a part of the image processing pipeline where we first run visit on n images. This will generate approximately n\*500 cropped images. These images will then be fed into our desired model.
+
+<img src="./images/Workflow-01.png?raw=true" width="600" classsname="mx-y"/>
+
