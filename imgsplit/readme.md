@@ -8,7 +8,8 @@ The problem at hand for us was to build a pipeline that randomly selects an imag
 #### imcrop(path,size)
 This function takes a path and a size. Upon opening the image at the defined path, it splits the entire image length and breath wise into successive components. The image below illustrates the number of splits:
 
-![Alt text](./images/imgrop-01.png?raw=true "Title")
+
+<img src="./images/imgrop-01.png?raw=true" width="128"/>
 
 
 
