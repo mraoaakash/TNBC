@@ -9,12 +9,16 @@ The problem at hand for us was to build a pipeline that randomly selects an imag
 This function takes a path and a size. Upon opening the image at the defined path, it splits the entire image length and breath wise into successive components. The image below illustrates the number of splits:
 
 
-<img src="./images/imgrop-01.png?raw=true" width="500" classsname="mx-y"/>
+<img src="./images/imgrop-01.png?raw=true" width="600" classsname="mx-y"/>
 
 
 
 #### randcrop(path, filename, size, num)
-This function is responsible to pick randomised chunks of a given image. The path of the image is fed in through the function signature and is opened using tifffile's imread function
+This function is responsible to pick randomised chunks of a given image. The path of the image is fed in through the function signature and is opened using tifffile's imread function. Using a simple for loop we then cut out randomised size\*size sections of the image. We achieve randomization, or pseudo-randomization by using the randint function in the random package to generate random top-left coordinates for the chosen image. It then writes the generated with a custom name to a selected directory.
+
+<img src="./images/randcrop-01.png?raw=true" width="600" classsname="mx-y"/>
+
+
 
 #### Function_3()
 Info
