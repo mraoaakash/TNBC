@@ -13,8 +13,8 @@ This function takes a path and a size. Upon opening the image at the defined pat
 
 
 
-#### Function_2()
-Info
+#### randcrop(path, filename, size, num)
+This function is responsible to pick randomised chunks of a given image. The path of the image is fed in through the function signature and is opened using tifffile's imread function
 
 #### Function_3()
 Info
