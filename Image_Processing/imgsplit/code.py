@@ -5,6 +5,7 @@ import random
 import re
 import os
 from random import randint
+import fnmatch
 
 #crops a defined image
 def imcrop(path,size):
@@ -20,7 +21,7 @@ def imcrop(path,size):
 		j=0
 		while j <= a[1]-size-1:
 			crop = img[j:(j+size), i:(i+size),:]
-			filename = "/home/aakash.rao_ug23/TNBC/gitrepo/tnbc/Image_Processing/imgsplit/editedimages/file_%d.jpg"%d
+			filename = "./TNBC/gitrepo/tnbc/Image_Processing/imgsplit/editedimages/file_%d.jpg"%d
 			crop = cv2.resize(crop,(224,224))
 			cv2.imwrite(filename, crop)
 			d=d+1
@@ -39,7 +40,7 @@ def randcrop(path, filename, size, num):
 		crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
 
 		# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY 
-		filepath = "/home/aakash.rao_ug23/TNBC/gitrepo/tnbc/Image_Processing/imgsplit/editedimages/"+filename[0:len(filename)-4]+"_v_"+str(i)+".tif" 
+		filepath = "./TNBC/gitrepo/tnbc/Image_Processing/imgsplit/editedimages/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+".tif" 
 		cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
 
 
@@ -61,7 +62,38 @@ def randpath():
 def visit(n):
 	for i in range(n):
 		tpath = randpath() #generates a random path
-		randcrop(tpath[0], tpath[1], 580,500) #Calls the function randcrop
+		randcrop(tpath[0], tpath[1], 580,10) #Calls the function randcrop
 
-visit(30)
+
+#returns all .tif files from the entire storage by mapping 
+#from the root inside all subdirectories. This returns a path
+#to every single .tif file in the entire directory defined
+#by the user
+def tiffimgs():
+	# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY
+	dir = "/storage/tnbc"
+	for subdir, dirs, files in os.walk(dir):
+		for file in files:
+			if fnmatch.fnmatch(file, '*.tif'):
+				prpath=str(os.path.join(subdir, file))
+				#call your preferred function here
+				#can be randcrop or imgcrop or any
+				#custom function
+
+
+#does the same function as tiffimgs() while ensuring that
+#the paths accepted are only thos of images with 'key' in
+#their name. This can be used to run certian functions on
+#specifically HnE/Vimentin/CD31 files.
+def hneimgs(key):
+	# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY
+	dir = "/storage/tnbc"
+	for subdir, dirs, files in os.walk(dir):
+		for file in files:
+			if fnmatch.fnmatch(file, '*.tif'):
+				if key in file.lower():
+					prpath=str(file+"\n")
+					#call yout preferred function here
+					#can be	randcrop or imgcrop or any
+					#custom function
 
