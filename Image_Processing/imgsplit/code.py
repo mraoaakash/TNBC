@@ -85,7 +85,7 @@ def tiffimgs():
 #the paths accepted are only thos of images with 'key' in
 #their name. This can be used to run certian functions on
 #specifically HnE/Vimentin/CD31 files.
-def hneimgs(key):
+def keyimgs(key):
 	# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY
 	dir = "/storage/tnbc"
 	for subdir, dirs, files in os.walk(dir):
