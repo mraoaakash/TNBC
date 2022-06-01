@@ -33,6 +33,12 @@ This function is designed to chose a random file from given repository. It uses 
 #### visit(n)
 For the purposes of modularity, this function is designed to call the randpath n times and at each iteration call randcrop on the given filepath.
 
+#### tiffimgs()
+For this project, we are dealing with only .tif images. Keeping this in mind, it was necessary for us to be able to find the tif images from our entire directory with images spanning across multiple directories. THis function walks from the root our any given directory and checks if every single file is a .tif and generates a path if-and-only-if the given file is a tif. The path can further be passed on to randcrop(), imgcrop(), or any other function.
+
+#### keyimgs(key)
+Our project, at certain instances required the used of specific images, such as those of a slined stained with HnE, Vimentin, etc. This function takes a walk through the entire directory, from the root and checks if every single file is a .tif and contains the key as mentioend by the user. The function generates a path if-and-only-if the given file is a tif and the key is a substring of the filename. The path can further be passed on to randcrop(), imgcrop(), or any other function.
+
 ### Workflow
 These functions are designed to serve as a part of the image processing pipeline where we first run visit on n images. This will generate approximately n\*500 cropped images. These images will then be fed into our desired model.
 
