@@ -114,3 +114,8 @@ dkms.conf
 # 3D Images
 *.3dm
 *.max
+
+# Igoring log files
+*.log
+*.aux
+*.synctex.gz
