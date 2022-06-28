@@ -1,9 +1,9 @@
-import imagecodecs
-import tifffile as tiff
-import cv2
+#import imagecodecs
+# import tifffile as tiff
+# import cv2
 import random
 import re
-import os
+import shutil, os
 from random import randint
 import fnmatch
 
@@ -51,7 +51,7 @@ def randcrop(path, filename, size, num):
 def randpath():
 
 	# PLEASE CHANGE	THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY
-	dir = "/storage/tnbc/OPTRASCAN_IISER_Round_1/IISER_Box_"+str(randint(1,7)) +"/TIFF"
+	dir = "/Users/mraoaakash/Desktop/TNBC/images/editedimages/224:224/Raw"
 	filename = random.choice(os.listdir(dir))
 	path = os.path.join(dir, filename)
 	return (path,filename)
@@ -62,7 +62,9 @@ def randpath():
 def visit(n):
 	for i in range(n):
 		tpath = randpath() #generates a random path
-		randcrop(tpath[0], tpath[1], 580,10) #Calls the function randcrop
+		shutil.copy(tpath[0], '/Users/mraoaakash/Desktop/TNBC/images/editedimages/224:224/Send')
+		#randcrop(tpath[0], tpath[1], 580,10) #Calls the function randcrop
+	print(array)
 
 
 #returns all .tif files from the entire storage by mapping 
@@ -97,3 +99,5 @@ def keyimgs(key):
 					#can be	randcrop or imgcrop or any
 					#custom function
 
+
+visit(5000)
