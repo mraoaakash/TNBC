@@ -18,7 +18,7 @@ def create_dataset(path):
 			linker = str(os.path.join(subdir, file))
 			img = np.array(tiff.imread(linker)).reshape(-1)
 			imlist = np.append(imlist,img, axis=0)
-			labels[i]=str(file)
+			labels.append(str(file))
 			i+=1
 	print(imlist)
 	print(labels)
