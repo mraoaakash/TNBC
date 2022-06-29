@@ -51,7 +51,7 @@ def randcrop(path, filename, size, num):
 def randpath():
 
 	# PLEASE CHANGE	THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY
-	dir = "/Users/mraoaakash/Desktop/TNBC/images/editedimages/224:224/Raw"
+	dir = "/storage/tnbc/segments/224:224/Raw"
 	filename = random.choice(os.listdir(dir))
 	path = os.path.join(dir, filename)
 	return (path,filename)
@@ -62,9 +62,8 @@ def randpath():
 def visit(n):
 	for i in range(n):
 		tpath = randpath() #generates a random path
-		shutil.copy(tpath[0], '/Users/mraoaakash/Desktop/TNBC/images/editedimages/224:224/Send')
+		shutil.copy(tpath[0], '/storage/tnbc/segments/224:224/Send')
 		#randcrop(tpath[0], tpath[1], 580,10) #Calls the function randcrop
-	print(array)
 
 
 #returns all .tif files from the entire storage by mapping 
