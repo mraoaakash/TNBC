@@ -5,6 +5,8 @@ import random
 from scipy import fft as fft
 import os
 
+from Segment_clustering.create_dataset import create_dataset
+
 def d_cos_t():
     dir = "/Users/mraoaakash/Desktop/TNBC/images/editedimages/625:625/Send"
     filename = random.choice(os.listdir(dir))
@@ -16,5 +18,3 @@ def d_cos_t():
     print("The shape of the imager:\n", img.shape)
     return 
 
-def d_cos_t_inv():
-    dir = "/Users/mraoaakash/Desktop/TNBC/images/editedimages/625:625/Send"

@@ -22,8 +22,6 @@ def create_dataset(path):
 			f.write(line)
 			f.write('\n')
 
-def create_multiset(path):
-	
-	return
+	return (imlist,labels)
 
 create_dataset("//Users/mraoaakash/Desktop/TNBC/images/editedimages/625:625/Send")
