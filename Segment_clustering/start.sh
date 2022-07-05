@@ -8,4 +8,3 @@
 module load compiler/anaconda3
 source /home/aakash.rao_ug23/TNBC/gitrepo/tnbc/Image_Processing/imgsplit/env/bin/activate
 python3 /home/aakash.rao_ug23/TNBC/gitrepo/tnbc/Segment_clustering/aff_prop.py
-

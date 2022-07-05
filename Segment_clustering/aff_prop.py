@@ -6,12 +6,11 @@ from scipy import fft as fft
 import os
 from sklearn.cluster import AffinityPropagation
 
-from ./Segment_clustering.create_dataset import create_dataset
+
 
 def aff_prop():
-    dir = "/home/storage/tnbc/segments/625:625/Send"
-    X = create_dataset()[0]
-    y_original = create_dataset()[1]
+    dir = "/home/storage/tnbc/segments/224:224/Send"
+    X = np.loadtxt("/storage/tnbc/segments/224:224/images_grayscale_224.csv", delimiter=',')
     clustering = AffinityPropagation(random_state=5).fit(X)
     y_pred = clustering.predict(X)
     print("The predicted labels:\n", y_pred)
