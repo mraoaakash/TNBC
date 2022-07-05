@@ -6,10 +6,10 @@ from scipy import fft as fft
 import os
 from sklearn.cluster import AffinityPropagation
 
-from Segment_clustering.create_dataset import create_dataset
+from ./Segment_clustering.create_dataset import create_dataset
 
 def aff_prop():
-    dir = "/Users/mraoaakash/Desktop/TNBC/images/editedimages/625:625/Send"
+    dir = "/home/storage/tnbc/segments/625:625/Send"
     X = create_dataset()[0]
     y_original = create_dataset()[1]
     clustering = AffinityPropagation(random_state=5).fit(X)
