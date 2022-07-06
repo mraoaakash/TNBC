@@ -1,6 +1,6 @@
-#import imagecodecs
-# import tifffile as tiff
-# import cv2
+import imagecodecs
+import tifffile as tiff
+import cv2
 import random
 import re
 import shutil, os
@@ -34,15 +34,23 @@ def imcrop(path,size):
 #crops n random regions of the image 
 def randcrop(path, filename, size, num):
 	img = tiff.imread(path,0) #brings the image into memory
-	for i in range(0,num):
-		w = randint(0, img.shape[0]-size-1) 
-		l = randint(0, img.shape[1]-size-1) #gets random (x,y) coordinates
-		crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
+	# for i in range(0,num):
+	# 	w = randint(0, img.shape[0]-size-1) 
+	# 	l = randint(0, img.shape[1]-size-1) #gets random (x,y) coordinates
+	# 	crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
 
-		# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY 
-		filepath = "./TNBC/gitrepo/tnbc/Image_Processing/imgsplit/editedimages/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+".tif" 
-		cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
-
+	# 	# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY 
+	# 	filepath = "./TNBC/gitrepo/tnbc/Image_Processing/imgsplit/editedimages/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+".tif" 
+	# 	cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
+	for i in range(img.shape[0]):
+		for j in range(img.shape[1]):
+			random.seed(j)
+			w = randint(0, i-size-1) 
+			l = randint(0, j-size-1) #gets random (x,y) coordinates
+			crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
+			filepath = "/Users/mraoaakash/Desktop/TNBC/images/editedimages/224:224/newgen/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+"_"+str(j)+".tif" 
+			cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
+			
 
 
 
@@ -99,4 +107,3 @@ def keyimgs(key):
 					#custom function
 
 
-visit(5000)
