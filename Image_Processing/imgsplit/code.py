@@ -8,6 +8,8 @@ from random import randint
 import fnmatch
 import hashlib
 from PIL import Image
+import numpy as np
+
 
 #crops a defined image
 def imcrop(path,size):
@@ -43,9 +45,7 @@ def randcrop(path, filename, size):
 			random.seed(x)
 			w = i+ randint(0,img.shape[0]//10-size)
 			print(f"w={w}")
-			random.seed(x)
 			l = j+ randint(0,img.shape[1]//10-size)
-			print(f"l={l}")
 			crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
 			newfilename = "patch_"+str(x)+".tif"
 			filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
@@ -55,25 +55,29 @@ def randcrop(path, filename, size):
 	with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
 		json.dump(filekey, outfile)
 
-def new_randcrop(size):
+def new_randcrop():
+	size=224
 	filekey = dict()
-	img = tiff.imread(path,0) #brings the image into memory
 	x=0
 	dir = "/storage/tnbc"
 	key="hne"
+	exclude = ['benchmark','segments']
+	exclude_im=["20200220-515-191_17-1049_17A-HER2-Biopsy-HnE-40X.tif","20200220-161-112_15-619_15_A-HER2-Biopsy-HnE-40X.tif", "20200220-142-246_15-3385_15_A-HER2-Biopsy-HnE-40X.tif", "20210821_752_307_19_W3_19_H7_ER_Surgery_HnE_40X.tif"]
 	for subdir, dirs, files in os.walk(dir):
+		dirs[:] = [d for d in dirs if d not in exclude]
+		files[:] = [f for f in files if f not in exclude_im]
 		for file in files:
 			if fnmatch.fnmatch(file, '*.tif'):
 				if key in file.lower():
 					path=str(os.path.join(subdir, file))
+					img = tiff.imread(path,0) #brings the image into memory
+					print(str(file))
 					for i in range(0,img.shape[0]-size,+img.shape[0]//10):
 						for j in range(0, img.shape[1]-size, +img.shape[1]//10):
 							random.seed(x)
 							w = i+ randint(0,img.shape[0]//10-size)
-							print(f"w={w}")
 							random.seed(x)
 							l = j+ randint(0,img.shape[1]//10-size)
-							print(f"l={l}")
 							crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
 							newfilename = "patch_"+str(x)+".tif"
 							filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
@@ -112,12 +116,13 @@ def visit(n):
 #by the user
 def tiffimgs():
 	# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY
-	dir = "/storage/tnbc"
+	dir = "/storage/tnbc/segments/newseg/224"
 	for subdir, dirs, files in os.walk(dir):
 		for file in files:
 			if fnmatch.fnmatch(file, '*.tif'):
 				prpath=str(os.path.join(subdir, file))
 				#call your preferred function here
+				print(file)
 				#can be randcrop or imgcrop or any
 				#custom function
 
@@ -129,15 +134,19 @@ def tiffimgs():
 def keyimgs(key):
 	# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY
 	dir = "/storage/tnbc"
+	exclude = ['benchmark','segments']
+	exclude_im=["20200220-515-191_17-1049_17A-HER2-Biopsy-HnE-40X.tif","20200220-161-112_15-619_15_A-HER2-Biopsy-HnE-40X.tif", "20200220-142-246_15-3385_15_A-HER2-Biopsy-HnE-40X.tif"]
 	for subdir, dirs, files in os.walk(dir):
+		dirs[:] = [d for d in dirs if d not in exclude]
+		files[:] = [f for f in files if f not in exclude_im]
 		for file in files:
 			if fnmatch.fnmatch(file, '*.tif'):
 				if key in file.lower():
 					prpath=str(os.path.join(subdir, file))
-					randcrop(prpath, file, 224)
+					print(file)
 					#call yout preferred function here
 					#can be	randcrop or imgcrop or any
 					#custom function
 
+new_randcrop()
 
-new_randcrop(224)
