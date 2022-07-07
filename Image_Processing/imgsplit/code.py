@@ -54,6 +54,34 @@ def randcrop(path, filename, size):
 			x+=1
 	with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
 		json.dump(filekey, outfile)
+
+def new_randcrop(size):
+	filekey = dict()
+	img = tiff.imread(path,0) #brings the image into memory
+	x=0
+	dir = "/storage/tnbc"
+	key="hne"
+	for subdir, dirs, files in os.walk(dir):
+		for file in files:
+			if fnmatch.fnmatch(file, '*.tif'):
+				if key in file.lower():
+					path=str(os.path.join(subdir, file))
+					for i in range(0,img.shape[0]-size,+img.shape[0]//10):
+						for j in range(0, img.shape[1]-size, +img.shape[1]//10):
+							random.seed(x)
+							w = i+ randint(0,img.shape[0]//10-size)
+							print(f"w={w}")
+							random.seed(x)
+							l = j+ randint(0,img.shape[1]//10-size)
+							print(f"l={l}")
+							crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
+							newfilename = "patch_"+str(x)+".tif"
+							filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
+							filekey[newfilename] = {"name":file, "path":filepath, "x":w, "y":l, "seed":x, "size":size, "im_shape":img.shape}
+							cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
+							x+=1
+	with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
+		json.dump(filekey, outfile)
 			
 
 
@@ -112,4 +140,4 @@ def keyimgs(key):
 					#custom function
 
 
-keyimgs("hne")
+new_randcrop(224)
