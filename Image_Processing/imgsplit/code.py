@@ -42,13 +42,15 @@ def randcrop(path, filename, size, num):
 	# 	# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY 
 	# 	filepath = "./TNBC/gitrepo/tnbc/Image_Processing/imgsplit/editedimages/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+".tif" 
 	# 	cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
-	for i in range(img.shape[0]):
-		for j in range(img.shape[1]):
+	for i in range(0,img.shape[0]-size,+img.shape[0]//10):
+		for j in range(0, img.shape[1]-size, +img.shape[1]//10):
 			random.seed(j)
-			w = randint(0, i-size-1) 
-			l = randint(0, j-size-1) #gets random (x,y) coordinates
+			basew = 0 if i<img.shape[0]//10 else i-img.shape[0]//10
+			w = randint(0 if i<(img.shape[0]//10) else (i-img.shape[0]//10), i-1) 
+			random.seed(j)
+			l = randint(0 if i<(img.shape[1]//10) else (j-img.shape[1]//10), j-1) #gets random (x,y) coordinates
 			crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
-			filepath = "/Users/mraoaakash/Desktop/TNBC/images/editedimages/224:224/newgen/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+"_"+str(j)+".tif" 
+			filepath = "/storage/tnbc/segments/newseg/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+"_"+str(j)+".tif" 
 			cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
 			
 
@@ -101,9 +103,11 @@ def keyimgs(key):
 		for file in files:
 			if fnmatch.fnmatch(file, '*.tif'):
 				if key in file.lower():
-					prpath=str(file+"\n")
+					prpath=str(os.path.join(subdir, file))
+					randcrop(prpath, file, 224, 0)
 					#call yout preferred function here
 					#can be	randcrop or imgcrop or any
 					#custom function
 
 
+keyimgs("hne")
