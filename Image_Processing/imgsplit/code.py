@@ -2,10 +2,11 @@ import imagecodecs
 import tifffile as tiff
 import cv2
 import random
-import re
+import json
 import shutil, os
 from random import randint
 import fnmatch
+import hashlib
 
 #crops a defined image
 def imcrop(path,size):
@@ -32,26 +33,24 @@ def imcrop(path,size):
 
 
 #crops n random regions of the image 
-def randcrop(path, filename, size, num):
+def randcrop(path, filename, size):
+	filekey = {}
 	img = tiff.imread(path,0) #brings the image into memory
-	# for i in range(0,num):
-	# 	w = randint(0, img.shape[0]-size-1) 
-	# 	l = randint(0, img.shape[1]-size-1) #gets random (x,y) coordinates
-	# 	crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
-
-	# 	# PLEASE CHANGE THIS FILE PATH TO YOUR LOCAL FILE PATH IF RUN LOCALLY 
-	# 	filepath = "./TNBC/gitrepo/tnbc/Image_Processing/imgsplit/editedimages/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+".tif" 
-	# 	cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
+	x=0
 	for i in range(0,img.shape[0]-size,+img.shape[0]//10):
 		for j in range(0, img.shape[1]-size, +img.shape[1]//10):
-			random.seed(j)
-			basew = 0 if i<img.shape[0]//10 else i-img.shape[0]//10
-			w = randint(0 if i<(img.shape[0]//10) else (i-img.shape[0]//10), i-1) 
-			random.seed(j)
-			l = randint(0 if i<(img.shape[1]//10) else (j-img.shape[1]//10), j-1) #gets random (x,y) coordinates
+			random.seed(x)
+			w = i+ randint(0,img.shape[0]-size)
+			random.seed(x)
+			l = j+ randint(0,img.shape[1]-size)
 			crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
-			filepath = "/storage/tnbc/segments/newseg/"+filename[0:len(filename)-4]+"_cropped_"+str(w)+"_"+str(l)+"_"+str(j)+".tif" 
+			newfilename = "patch_"+str(x)+".tif"
+			filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
+			filekey[newfilename] = {"name":filename, "path":filepath, "x":w, "y":l, "seed":x, "size":size, "im_shape":img.shape, "md5_checksum":hashlib.md5(crop).hexdigest()}
 			cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
+			x+=1
+	with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
+		json.dump(filekey, outfile)
 			
 
 
@@ -104,7 +103,7 @@ def keyimgs(key):
 			if fnmatch.fnmatch(file, '*.tif'):
 				if key in file.lower():
 					prpath=str(os.path.join(subdir, file))
-					randcrop(prpath, file, 224, 0)
+					randcrop(prpath, file, 224)
 					#call yout preferred function here
 					#can be	randcrop or imgcrop or any
 					#custom function
