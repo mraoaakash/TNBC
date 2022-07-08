@@ -49,7 +49,7 @@ def caller():
             if fnmatch.fnmatch(file, '*.tif'):
                 if key in file.lower():
                     prpath=str(os.path.join(subdir, file))
-                    if j>=241 and j!=199 and j!=211 and j!=239 and j!=240:
+                    if j!=199 and j!=211 and j!=239 and j!=240:
                         batch_keys = new_randcrop(prpath, file, j*100)
                         filekey = {**filekey, **batch_keys}
                     j+=1
