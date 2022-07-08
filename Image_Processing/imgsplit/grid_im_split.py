@@ -35,22 +35,22 @@ def new_randcrop():
 
     for file in array:
         path=file[0]
-        #img = tiff.imread(path,0) #brings the image into memory
+        img = tiff.imread(path,0) #brings the image into memory
         print(str(file[1]))
-    #     for i in range(0,img.shape[0]-size,+img.shape[0]//10):
-    #         for j in range(0, img.shape[1]-size, +img.shape[1]//10):
-    #             random.seed(x)
-    #             w = i+ randint(0,img.shape[0]//10-size)
-    #             random.seed(x)
-    #             l = j+ randint(0,img.shape[1]//10-size)
-    #             crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
-    #             newfilename = "patch_"+str(x)+".tif"
-    #             filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
-    #             cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
-    #             filekey[newfilename] = {"name":file[1], "oldpath": path, "newpath":filepath, "x":w, "y":l, "seed":x, "size":size, "im_shape":img.shape, "md5sum":hashlib.md5(filepath).hexdigest()}
-    #             x+=1
-    # with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
-    #     json.dump(filekey, outfile)
+        for i in range(0,img.shape[0]-size,+img.shape[0]//10):
+            for j in range(0, img.shape[1]-size, +img.shape[1]//10):
+                random.seed(x)
+                w = i+ randint(0,img.shape[0]//10-size)
+                random.seed(x)
+                l = j+ randint(0,img.shape[1]//10-size)
+                crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
+                newfilename = "patch_"+str(x)+".tif"
+                filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
+                cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
+                filekey[newfilename] = {"name":file[1], "oldpath": path, "newpath":filepath, "x":w, "y":l, "seed":x, "size":size, "im_shape":img.shape, "md5sum":hashlib.md5(filepath).hexdigest()}
+                x+=1
+    with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
+        json.dump(filekey, outfile)
 
 new_randcrop()
 
