@@ -38,8 +38,6 @@ def new_randcrop(file, filename, x=0):
     with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
         json.dump(filekey, outfile)
 
-new_randcrop()
-
 
 def caller():
     dir = "/storage/tnbc"
@@ -59,3 +57,5 @@ def caller():
     for i in array:
         new_randcrop(i[0], i[1], j*100)
         j+=1
+
+caller()
