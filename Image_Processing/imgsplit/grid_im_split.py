@@ -18,7 +18,7 @@ def new_randcrop():
 
     size=224
     filekey = dict()
-    x=0
+    x=19800
     dir = "/storage/tnbc"
     key="hne"
     array = []
