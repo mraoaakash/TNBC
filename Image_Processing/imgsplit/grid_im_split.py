@@ -27,7 +27,7 @@ def new_randcrop(file, filename, x=0):
             random.seed(x)
             l = j+ randint(0,img.shape[1]//10-size)
             crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
-            newfilename = "patch_"+str(x)+".tif"
+            newfilename = "patch_"+str(x).rjust(5, '0')+".tif"
             filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
             cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
             command = "md5sum " +  filepath
