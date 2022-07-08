@@ -40,6 +40,7 @@ def new_randcrop(file, filename, x=0):
 def caller():
     dir = "/storage/tnbc"
     key="hne"
+    filekey=dict()
     array = []
     j=0
     for subdir, dirs, files in os.walk(dir):
