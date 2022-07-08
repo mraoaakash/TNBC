@@ -54,6 +54,7 @@ def caller():
                 if key in file.lower():
                     prpath=str(os.path.join(subdir, file))
                     array.append((prpath, file))
+    print(array)
     j=0
     for i in array:
         new_randcrop(i[0], i[1], j*100)
