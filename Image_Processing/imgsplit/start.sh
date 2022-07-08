@@ -2,7 +2,7 @@
 #PBS -N TNB_IMG_split
 #PBS -o out.log
 #PBS -e err.log
-#PBS -l ncpus=50
+#PBS -l ncpus=15
 #PBS -q gpu
 
 module load compiler/anaconda3

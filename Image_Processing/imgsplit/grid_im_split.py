@@ -47,7 +47,9 @@ def new_randcrop():
                 newfilename = "patch_"+str(x)+".tif"
                 filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
                 cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
-                filekey[newfilename] = {"name":file[1], "oldpath": path, "newpath":filepath, "x":w, "y":l, "seed":x, "size":size, "im_shape":img.shape, "md5sum":hashlib.md5(filepath).hexdigest()}
+		command = "md5sum " +  filepath
+		sum = os.popen(command).read()
+                filekey[newfilename] = {"name":file[1], "oldpath": path, "newpath":filepath, "x":w, "y":l, "seed":x, "size":size, "im_shape":img.shape, "md5sum":sum}
                 x+=1
     with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
         json.dump(filekey, outfile)
