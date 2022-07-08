@@ -22,7 +22,7 @@ def new_randcrop(files):
     key="hne"
     for file in files:
         path=file[0]
-        img = tiff.imread(path,0) #brings the image into memory
+        #img = tiff.imread(path,0) #brings the image into memory
         print(str(file[1]))
     #     for i in range(0,img.shape[0]-size,+img.shape[0]//10):
     #         for j in range(0, img.shape[1]-size, +img.shape[1]//10):
