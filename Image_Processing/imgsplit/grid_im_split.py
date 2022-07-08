@@ -31,7 +31,7 @@ def new_randcrop(file, filename, x=0):
             filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
             cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
             command = "md5sum " +  filepath
-            sum = os.popen(command).read()
+            sum = os.popen(command).read().split(" ")[0]
             filekey[newfilename] = {"name":filename, "oldpath": file, "newpath":filepath, "x":w, "y":l, "seed":x, "size":size, "im_shape":img.shape, "md5sum":sum}
             x+=1
     return filekey
@@ -49,7 +49,7 @@ def caller():
             if fnmatch.fnmatch(file, '*.tif'):
                 if key in file.lower():
                     prpath=str(os.path.join(subdir, file))
-                    if j>200 and j!=199 and j!=211 and j!=239 and j!=240:
+                    if j!=199 and j!=211 and j!=239 and j!=240:
                         batch_keys = new_randcrop(prpath, file, j*100)
                         filekey = {**filekey, **batch_keys}
                     j+=1
