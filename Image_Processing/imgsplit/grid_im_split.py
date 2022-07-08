@@ -41,7 +41,6 @@ def caller():
     dir = "/storage/tnbc"
     key="hne"
     filekey=dict({})
-    array = []
     j=0
     for subdir, dirs, files in os.walk(dir):
         dirs[:] = [d for d in dirs if d not in exclude]
@@ -50,9 +49,10 @@ def caller():
             if fnmatch.fnmatch(file, '*.tif'):
                 if key in file.lower():
                     prpath=str(os.path.join(subdir, file))
-                    batch_keys = new_randcrop(prpath, file, j*100)
+                    if j>=199:
+                        batch_keys = new_randcrop(prpath, file, j*100)
+                        filekey = {**filekey, **batch_keys}
                     j+=1
-                    filekey = {**filekey, **batch_keys}
     with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
         json.dump(filekey, outfile)
 
