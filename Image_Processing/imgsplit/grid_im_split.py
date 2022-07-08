@@ -32,7 +32,7 @@ def new_randcrop():
                 if key in file.lower():
                     prpath=str(os.path.join(subdir, file))
                     array.append((prpath, file))
-
+    files = file[199:]
     for file in array:
         path=file[0]
         img = tiff.imread(path,0) #brings the image into memory
