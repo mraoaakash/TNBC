@@ -3,12 +3,9 @@ import tifffile as tiff
 import cv2
 import random
 import json
-import shutil, os
+import os
 from random import randint
 import fnmatch
-import hashlib
-from PIL import Image
-import numpy as np
 
 filekey=dict({})
 exclude = ['benchmark','segments']
@@ -16,7 +13,7 @@ exclude_im=["20200220-515-191_17-1049_17A-HER2-Biopsy-HnE-40X.tif","20200220-161
 
 def new_randcrop(file, filename, x=0):
 
-    size=224
+    size=625
     filekey = dict()
     img = tiff.imread(file,0) #brings the image into memory
     print(filename)
@@ -28,7 +25,7 @@ def new_randcrop(file, filename, x=0):
             l = j+ randint(0,img.shape[1]//10-size)
             crop = img[w:(w+size) ,l:(l+size)] #crops size squared area around the defined random coordinate
             newfilename = "patch_"+str(x).rjust(5, '0')+".tif"
-            filepath = "/storage/tnbc/segments/newseg/224/"+newfilename
+            filepath = "/storage/tnbc/segments/newseg/625/"+newfilename
             cv2.imwrite(filepath, crop) #saves the image with the filepath mentioned above
             command = "md5sum " +  filepath
             sum = os.popen(command).read().split(" ")[0]
@@ -53,7 +50,7 @@ def caller():
                         batch_keys = new_randcrop(prpath, file, j*100)
                         filekey = {**filekey, **batch_keys}
                     j+=1
-    with open("/storage/tnbc/segments/newseg/224/metadata_224.json", "w+") as outfile:
+    with open("/storage/tnbc/segments/newseg/625/metadata_625.json", "w+") as outfile:
         json.dump(filekey, outfile)
 
 caller()
