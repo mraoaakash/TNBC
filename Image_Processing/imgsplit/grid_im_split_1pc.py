@@ -12,7 +12,6 @@ exclude = ['benchmark','segments']
 exclude_im=["20200220-515-191_17-1049_17A-HER2-Biopsy-HnE-40X.tif","20200220-161-112_15-619_15_A-HER2-Biopsy-HnE-40X.tif", "20200220-142-246_15-3385_15_A-HER2-Biopsy-HnE-40X.tif", "20210821_752_307_19_W3_19_H7_ER_Surgery_HnE_40X.tif"]
 
 def new_randcrop(file, filename, x=0):
-
     size=625
     filekey = dict()
     img = tiff.imread(file,0) #brings the image into memory
