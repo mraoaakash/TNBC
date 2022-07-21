@@ -16,5 +16,5 @@ def imgRet(key='hne'):
 					#call yout preferred function here
 					#can be	randcrop or imgcrop or any
 					#custom function
-            pass
-    return
+
+imgRet('hne')
